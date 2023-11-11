@@ -47,7 +47,7 @@ if __name__ == "__main__":
         readme_file.write(f"<ol>\n")
         tests = data.get("tests")
         if int(maxTestIndex) > 0:
-            tests = tests[:maxTestIndex]
+            tests = tests[:int(maxTestIndex)]
             print("Slicing tests", tests)
         for test in tests:
             have_specs = test.get("specs")
