@@ -1,0 +1,52 @@
+
+name: GitHub Classroom Workflow
+
+on:
+  - push
+  - workflow_dispatch
+
+permissions:
+  checks: write
+  actions: write
+  contents: write
+
+jobs:
+  setup:
+    if: "(! contains(github.event.head_commit.message, 'Automatic setup')) && (github.event.head_commit.message == '')" # To prevent potential infinite loops
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Update content if needed
+      env:
+        CI: true # This ensures GitHub Actions treats shell commands' errors as fatal
+        REPO_NAME: ${{ github.repository }}
+      run: |
+        IS_SETUP=$(jq -r .repo .github/classroom/autograding.json)
+        
+        if [ "$IS_SETUP" != "$REPO_NAME" ]; then
+          jq --arg rn "$REPO_NAME" '.repo = $rn' .github/classroom/autograding.json > tmp.json
+          cat tmp.json > .github/classroom/autograding.json
+          python3 .github/scripts/updateReadme.py
+
+          # Commit and push changes
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add Readme.md .github/classroom/autograding.json
+          git commit -m "Automatic setup"
+          git push
+        fi
+  build:
+    name: Testergebnisse
+    runs-on: ubuntu-latest
+    if: "! contains(github.event.head_commit.message, 'Automatic setup') || github.actor != 'github-classroom[bot]'"
+    steps:
+      - name: Install puppeteer
+        run: |
+          npm install -g puppeteer@21.4.1
+          pip3 install pyastgrep cfn-lint
+      - uses: actions/checkout@v4
+      - uses: GittyBitch/autograding@feature/feedback
+      
