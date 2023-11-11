@@ -66,7 +66,7 @@ jobs:
           echo $TESTLIMIT
           if [ $MAXTESTINDEX -lt $TESTLIMIT ]; then
             NEXTLIMIT=$(expr 3 + 1)
-            jq --arg rn $MAXTESTINDEX '.maxTestIndex = $rn' .github/classroom/autograding.json > tmp.json
+            jq --arg rn $NEXTLIMIT '.maxTestIndex = $rn' .github/classroom/autograding.json > tmp.json
             cat tmp.json > .github/classroom/autograding.json
             python3 .github/scripts/updateReadme.py
 
