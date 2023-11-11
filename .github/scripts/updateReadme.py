@@ -20,6 +20,7 @@ if __name__ == "__main__":
     with open(readme, 'w', encoding="utf-8") as readme_file:
         repo = data.get("repo")
         introduction = ""
+        maxTestIndex = data.get("maxTestIndex", 0)
         if repo != None or repo != False:
             statusURL = f"https://github.com/{repo}/actions/workflows/classroom.yml"
             introduction = f"[![GitHub Classroom Workflow]({statusURL}/badge.svg)]({statusURL}) \n\n" # FIXME: Der Link stimmt nicht mehr so ganz ...
@@ -40,9 +41,15 @@ if __name__ == "__main__":
             write_intro(readme_file, "Aufgabe", introduction)
             readme_file.write(f"* {total_points} Punkte\n* {timeframe}\n")
             write_horizontal_line(readme_file)
-        
+            hint = "Ladet eure Lösung bitte nicht in den .github-Ordner. "
+            readme_file.write(f"<p>{hint} </p>\n")
+            write_horizontal_line(readme_file)
         readme_file.write(f"<ol>\n")
-        for test in data.get("tests"):
+        tests = data.get("tests")
+        if maxTestIndex > 0:
+            tests = tests[:maxTestIndex]
+            print("Slicing tests", tests)
+        for test in tests:
             have_specs = test.get("specs")
             points = test.get("points")
             title = have_specs.get("title")
