@@ -1,7 +1,7 @@
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HelloWorld.svg/512px-HelloWorld.svg.png" alt="In dieser ersten kleinen Mini-Aufgabe erstellt ihr ein Skript, das Hello World ausgibt. 
  Folgt den Anweisungen. Unter Hilfe findet ihr Links, die mit dem Wort Spickzettel markiert sind. Drückt diese bei Bedarf, falls ihr nicht weiterkommt. 
 " width="300"/>
-
+[![Points badge](../../blob/badges/.github/badges/points.svg)](../../actions)
 ---
 # Aufgabe
 [![GitHub Classroom Workflow](https://github.com/helsoc7/new-script/actions/workflows/classroom.yml/badge.svg)](https://github.com/helsoc7/new-script/actions/workflows/classroom.yml) 
