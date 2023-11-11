@@ -55,8 +55,8 @@ jobs:
     if: 1
     needs: [build]
     steps: 
-      - name: updateReadme
       - uses: actions/checkout@v4
+      - name: updateReadme
         run: |
           MAXTESTINDEX=$(jq -r .maxTestIndex .github/classroom/autograding.json)
           TESTLIMIT=$(jq -r .testLimit .github/classroom/autograding.json)
