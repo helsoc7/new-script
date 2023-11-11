@@ -58,14 +58,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: updateReadme
         run: |
-          echo "Success"
-          ls -la
           MAXTESTINDEX=$(jq -r .maxTestIndex .github/classroom/autograding.json)
-          echo $MAXTESTINDEX
           TESTLIMIT=$(jq -r .testLimit .github/classroom/autograding.json)
-          echo $TESTLIMIT
           if [ $MAXTESTINDEX -lt $TESTLIMIT ]; then
-            NEXTLIMIT=$(expr 3 + 1)
+            NEXTLIMIT=$(expr $MAXTESTINDEX + 1)
             jq --argjson rn $NEXTLIMIT '.maxTestIndex = $rn' .github/classroom/autograding.json > tmp.json
             cat tmp.json > .github/classroom/autograding.json
             python3 .github/scripts/updateReadme.py
