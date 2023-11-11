@@ -61,7 +61,9 @@ jobs:
           echo "Success"
           ls -la
           MAXTESTINDEX=$(jq -r .maxTestIndex .github/classroom/autograding.json)
+          echo $MAXTESTINDEX
           TESTLIMIT=$(jq -r .testLimit .github/classroom/autograding.json)
+          echo $TESTLIMIT
           if [ "$MAXTESTINDEX" < "$TESTLIMIT" ]; then
             NEXTLIMIT= expr $MAXTESTINDEX + 1
             jq --arg rn "$MAXTESTINDEX" '.repo = $rn' .github/classroom/autograding.json > tmp.json
