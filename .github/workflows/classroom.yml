@@ -59,6 +59,7 @@ jobs:
       - name: updateReadme
         run: |
           echo "Success"
+          ls -la
           MAXTESTINDEX=$(jq -r .maxTestIndex .github/classroom/autograding.json)
           TESTLIMIT=$(jq -r .testLimit .github/classroom/autograding.json)
           if [ "$MAXTESTINDEX" < "$TESTLIMIT" ]; then
