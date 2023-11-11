@@ -56,6 +56,7 @@ jobs:
     needs: [build]
     steps: 
       - name: updateReadme
+      - uses: actions/checkout@v4
         run: |
           MAXTESTINDEX=$(jq -r .maxTestIndex .github/classroom/autograding.json)
           TESTLIMIT=$(jq -r .testLimit .github/classroom/autograding.json)
@@ -73,5 +74,6 @@ jobs:
             git commit -m "Automatic setup"
             git push
           fi
+  
 
       
