@@ -58,9 +58,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: updateReadme
         run: |
+          echo "Success"
           MAXTESTINDEX=$(jq -r .maxTestIndex .github/classroom/autograding.json)
           TESTLIMIT=$(jq -r .testLimit .github/classroom/autograding.json)
-          
           if [ "$MAXTESTINDEX" < "$TESTLIMIT" ]; then
             NEXTLIMIT= expr $MAXTESTINDEX + 1
             jq --arg rn "$MAXTESTINDEX" '.repo = $rn' .github/classroom/autograding.json > tmp.json
