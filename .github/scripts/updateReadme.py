@@ -23,8 +23,8 @@ if __name__ == "__main__":
         maxTestIndex = data.get("maxTestIndex", 0)
         if repo != None or repo != False:
             statusURL = f"https://github.com/{repo}/actions/workflows/classroom.yml"
-            introduction = f"[![GitHub Classroom Workflow]({statusURL}/badge.svg)]({statusURL}) \n\n" # FIXME: Der Link stimmt nicht mehr so ganz ...
-
+            introduction = f"[![GitHub Classroom Workflow]({statusURL}/badge.svg)]({statusURL}) [![Points badge](../../blob/badges/.github/badges/points.svg)](../../actions) \n\n" # FIXME: Der Link stimmt nicht mehr so ganz ...
+            
         textIntro = data.get("introduction")
         introduction += textIntro
         total_points = 0
